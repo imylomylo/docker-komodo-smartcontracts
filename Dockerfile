@@ -4,7 +4,7 @@
 FROM ubuntu:16.04
 # Install bitcoind from PPA
 RUN apt-get update && \
- apt-get install -y  build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate vim software-properties-common curl libcurl4-gnutls-dev cmake clang screen htop sudo
+ apt-get install -y  build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate vim software-properties-common curl libcurl4-gnutls-dev cmake clang screen htop sudo ngrep
 
 RUN git clone https://github.com/nanomsg/nanomsg && \
   cd nanomsg && \
@@ -30,12 +30,17 @@ RUN  cd komodo && \
   git checkout jl777 && \
   ./zcutil/build.sh -j$(nproc)
 
+RUN ln -sf /komodo/src/komodod /usr/local/bin/komodod && \
+  ln -sf /komodo/src/komodo-cli /usr/local/bin/komodo-cli
+
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
+  apt-get install -y nodejs
 
 # copy dir with conf and blocks
 #ADD . /home/komodo/data
     
 # EXPOSE rpc port for the node to allow outside container access
-EXPOSE 42839 42840 40245
+EXPOSE 27771 27772 27773 27774 27775 27776 27777 27778
 
 # There can only be one CMD instruction in a Dockerfile
 # CMD provides defaults for an executing container
