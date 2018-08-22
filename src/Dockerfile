@@ -20,14 +20,13 @@ RUN git clone https://github.com/nanomsg/nanomsg && \
 #WORKDIR /home/komodo
 ENV USER=jl777
 ENV REPO=komodo
-ENV BRANCH=jl777
+ENV BRANCH=dev
 
 ADD https://api.github.com/repos/$USER/$REPO/git/refs/heads/$BRANCH version.json
 RUN git clone -b$BRANCH https://github.com/$USER/$REPO.git 
 
 #RUN git clone https://github.com/jl777/komodo.git && \
 RUN  cd komodo && \
-  git checkout jl777 && \
   ./zcutil/build.sh -j$(nproc)
 
 RUN ln -sf /komodo/src/komodod /usr/local/bin/komodod && \
