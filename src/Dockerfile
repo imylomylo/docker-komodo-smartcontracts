@@ -41,6 +41,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
 EXPOSE 27771 27772 27773 27774 27775 27776 27777 27778
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY user /etc/sudoers.d/user
 # There can only be one CMD instruction in a Dockerfile
 # CMD provides defaults for an executing container
 # Drop user into bash shell by default
