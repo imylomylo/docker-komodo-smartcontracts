@@ -1,0 +1,3 @@
+FROM imylomylo/kmd-jl777-dev
+
+CMD ["/bin/bash"]

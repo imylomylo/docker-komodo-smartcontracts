@@ -13,28 +13,28 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
     && rm /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu
 
-RUN git clone https://github.com/nanomsg/nanomsg && \
-  cd nanomsg && \
-  cmake . -DNN_TESTS=OFF -DNN_ENABLE_DOC=OFF && \
-  make -j$(nproc) && \
-  make install && \
-  ldconfig  
-
-ENV USER=jl777
-ENV REPO=komodo
-ENV BRANCH=dev
-
-ADD https://api.github.com/repos/$USER/$REPO/git/refs/heads/$BRANCH version.json
-RUN git clone -b$BRANCH https://github.com/$USER/$REPO.git 
-
-RUN  cd komodo && \
-  ./zcutil/build.sh -j$(nproc) 
-
-RUN ln -sf /komodo/src/komodod /usr/local/bin/komodod && \
-  ln -sf /komodo/src/komodo-cli /usr/local/bin/komodo-cli
-
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
-  apt-get install -y nodejs
+#RUN git clone https://github.com/nanomsg/nanomsg && \
+#  cd nanomsg && \
+#  cmake . -DNN_TESTS=OFF -DNN_ENABLE_DOC=OFF && \
+#  make -j$(nproc) && \
+#  make install && \
+#  ldconfig  
+#
+#ENV USER=jl777
+#ENV REPO=komodo
+#ENV BRANCH=dev
+#
+#ADD https://api.github.com/repos/$USER/$REPO/git/refs/heads/$BRANCH version.json
+#RUN git clone -b$BRANCH https://github.com/$USER/$REPO.git 
+#
+#RUN  cd komodo && \
+#  ./zcutil/build.sh -j$(nproc)
+#
+#RUN ln -sf /komodo/src/komodod /usr/local/bin/komodod && \
+#  ln -sf /komodo/src/komodo-cli /usr/local/bin/komodo-cli
+#
+#RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
+#  apt-get install -y nodejs
 
     
 # EXPOSE rpc port for the node to allow outside container access
