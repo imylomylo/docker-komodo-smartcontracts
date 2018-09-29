@@ -15,5 +15,15 @@ login:
 
 run:
 	docker run -it -e LOCAL_USER_ID=1000 --mount src=${PWD}/../node,target=/home/user/.komodo,type=bind --mount src=/home/${USER}/.zcash-params,target=/home/user/.zcash-params,type=bind ${NAME}
-#	docker run -it -e LOCAL_USER_ID=1000 --mount src=${PWD}/../node,target=/root/.komodo,type=bind --mount src=/home/${USER}/.zcash-params,target=/root/.zcash-params,type=bind ${NAME}
 
+osxrun:
+	docker run -it -e LOCAL_USER_ID=1000 --mount src=${PWD}/../node,target=/home/user/.komodo,type=bind --mount src=/Users/${USER}/Library/Application\ Support/ZcashParams/,target=/home/user/.zcash-params,type=bind ${NAME}
+
+acnet:
+	docker network create acnet
+
+runacnet:
+	docker run -it -e LOCAL_USER_ID=1000 --mount src=${PWD}/../node,target=/home/user/.komodo,type=bind --mount src=/home/${USER}/.zcash-params,target=/home/user/.zcash-params,type=bind --network acnet ${NAME}
+
+osxrunacnet:
+	docker run -it -e LOCAL_USER_ID=1000 --mount src=${PWD}/../node,target=/home/user/.komodo,type=bind --mount src=/Users/${USER}/Library/Application\ Support/ZcashParams/,target=/home/user/.zcash-params,type=bind --network acnet ${NAME}
