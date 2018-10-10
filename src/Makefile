@@ -27,3 +27,6 @@ runacnet:
 
 osxrunacnet:
 	docker run -it -e LOCAL_USER_ID=1000 --mount src=${PWD}/../node,target=/home/user/.komodo,type=bind --mount src=/Users/${USER}/Library/Application\ Support/ZcashParams/,target=/home/user/.zcash-params,type=bind --network acnet ${NAME}
+
+listcontainers:
+	docker ps -a
