@@ -30,3 +30,6 @@ osxrunacnet:
 
 listcontainers:
 	docker ps -a
+
+clearcontainers:
+	$(shell ./clearcontainers)
